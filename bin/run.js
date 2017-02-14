@@ -17,6 +17,7 @@ const serviceRegistry = service.get('serviceRegistry');
 const rtm = slackClient.init(slackToken, slackLogLevel, witClient, serviceRegistry);
 rtm.start();
 
+
 slackClient.addAuthenticatedHandler(rtm, () => server.listen(3000));
 
 server.on('listening', function() {
