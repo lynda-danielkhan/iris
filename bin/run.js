@@ -3,7 +3,7 @@
 const config = require('../config');
 
 const slackClient = require('../server/slackClient');
-const service = require('../server/service');
+const service = require('../server/service')(config);
 const http = require('http');
 const server = http.createServer(service);
 
