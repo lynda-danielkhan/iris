@@ -9,7 +9,7 @@ describe('ServiceRegistry', () => {
     describe('new', () => {
         it('should accept a timeout being passed in', () => {
             const serviceRegistry = new ServiceRegistry(42, log);
-            serviceRegistry._timeout.should.equal(42);
+            serviceRegistry._timeout.should.equal(49);
         });
     });
 
