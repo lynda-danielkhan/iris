@@ -7,7 +7,7 @@
     "test": "NODE_ENV=test eslint bin server && nyc mocha --recursive test",
     "start": "node bin/run"
   },
-  "engines" : {
+  "engines": {
     "node": "6.9.5"
   },
   "repository": {
