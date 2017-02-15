@@ -6,11 +6,15 @@ function handleWitResponse(res) {
     return res.entities;
 }
 
-module.exports = function witClient(token) {
-    const ask = function ask(message, cb) {
+class WitClient {
+    constructor(token) {
+        this._token = token;
+    }
+
+    ask(message, cb) {
 
         request.get('https://api.wit.ai/message')
-            .set('Authorization', 'Bearer ' + token)
+            .set('Authorization', 'Bearer ' + this._token)
             .query({v: '20160919'})
             .query({q: message})
             .end((err, res) => {
@@ -20,11 +24,9 @@ module.exports = function witClient(token) {
 
                 const witResponse = handleWitResponse(res.body);
                 return cb(null, witResponse);
-            })
+            });
 
-    }
-
-    return {
-        ask: ask
     }
 }
+
+module.exports = WitClient;

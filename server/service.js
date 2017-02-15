@@ -1,21 +1,25 @@
 'use strict';
 
 const express = require('express');
-const service = express();  
+const service = express();
 const ServiceRegistry = require('./serviceRegistry');
-const serviceRegistry = new ServiceRegistry();
 
-service.set('serviceRegistry', serviceRegistry);
 
-service.put('/service/:intent/:port', (req, res, next) => {
-    const serviceIntent = req.params.intent;
-    const servicePort = req.params.port;
+module.exports = (config) => {
 
-    const serviceIp = req.connection.remoteAddress.includes('::')
-    ? `[${req.connection.remoteAddress}]` : req.connection.remoteAddress;
+    const serviceRegistry = new ServiceRegistry(config.serviceTimeout, config.log());
+    service.set('serviceRegistry', serviceRegistry);
 
-    serviceRegistry.add(serviceIntent, serviceIp, servicePort);
-    res.json({result: `${serviceIntent} at ${serviceIp}:${servicePort}`});
-});
+    service.put('/service/:intent/:port', (req, res) => {
+        const serviceIntent = req.params.intent;
+        const servicePort = req.params.port;
 
-module.exports = service;
+        const serviceIp = req.connection.remoteAddress.includes('::')
+            ? `[${req.connection.remoteAddress}]` : req.connection.remoteAddress;
+
+        serviceRegistry.add(serviceIntent, serviceIp, servicePort);
+        res.json({ result: `${serviceIntent} at ${serviceIp}:${servicePort}` });
+    });
+
+    return service;
+};

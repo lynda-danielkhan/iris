@@ -4,13 +4,29 @@
   "description": "",
   "main": "server/service.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test eslint bin server && nyc mocha --recursive test",
+    "start": "node bin/run"
+  },
+  "engines": {
+    "node": "6.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lynda-danielkhan/iris.git"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@slack/client": "^3.6.0",
+    "bunyan": "^1.8.5",
+    "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "superagent": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "should": "^11.2.0",
+    "supertest": "^3.0.0"
   }
 }
