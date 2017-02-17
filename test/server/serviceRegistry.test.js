@@ -18,6 +18,7 @@ describe('ServiceRegistry', () => {
             const serviceRegistry = new ServiceRegistry(30, log);
             serviceRegistry.add('test', '127.0.0.1', 9999, 'someToken');
             const testIntent = serviceRegistry.get('test');
+            testIntent.accessToken.should.equal('someToken');
             testIntent.intent.should.equal('test');
             testIntent.ip.should.equal('127.0.0.1');
             testIntent.port.should.equal(9999);
